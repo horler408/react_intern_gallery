@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import API from './API'
+import API from './API';
+//import Page from './Page'
 
 function App() {
   return (
