@@ -1,35 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import PhotoCard from './components/PhotoCard';
-import { Container, Grid } from '@material-ui/core'
+import PhotoCard from './PhotoCard';
+import { Container } from '@material-ui/core'
 
 export default function API() {
+    // API baseUrl
     const endpoint = `https://jsonplaceholder.typicode.com/photos`;
 
+    // Initial states
     const [photos, setPhotos] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [photoPerPage] = useState(10);
 
-    const photoAlbums = (items) => {
-        const results = items.map(item => {
-            return item.albumId
-        });
-        const uniques = new Set(results);
-        return [...uniques]
-    }
 
+    // Function to execute on loading the page
     useEffect(() => {
         const fetchAPI = async ()=> {
             const response = await fetch(endpoint);
             const data = await response.json();
-            const albumId = photoAlbums(data)
-            //const result = data.splice(0, albumId.length)
-            console.log(data);
-            const results = data.filter(item => {
-                return item.albumId = albumId
-            })
 
-            console.log(albumId);
-            console.log(results);
+            //console.log(data);
             setPhotos(data)
         }
 
@@ -38,20 +27,20 @@ export default function API() {
 
     // Get display Photos
     const indexOfLastPhoto = currentPage * photoPerPage;
-    //const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const displayPhotos = photos.slice(0, indexOfLastPhoto);
 
-    //Show more event
+    //Increamenting the display
     const showMore = () => {
         setCurrentPage(currentPage + 1)
     }
+    // Decreamenting the display
     const showLess = () => {
         setCurrentPage(currentPage - 1)
     }
 
     return (
         <Container fixed>
-            <h2>{displayPhotos.length}</h2>   
+            <h2>{displayPhotos.length} Placeholder Photos</h2>   
             <PhotoCard 
                 photos={displayPhotos}
                 showMore={showMore}
